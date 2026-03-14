@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>frjoco_bringup</name>
+  <version>0.2.0</version>
+  <description>Top-level bringup package: SDK launch integration, MoveIt2, Nav2, sensors, pick-and-place.</description>
+  <maintainer email="lim@example.com">lim-hyun-su</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- SDK packages -->
+  <exec_depend>mobile_sdk</exec_depend>
+  <exec_depend>arm_sdk</exec_depend>
+  <exec_depend>gripper_sdk</exec_depend>
+
+  <!-- MoveIt2 -->
+  <exec_depend>mobile_manipulator_moveit_config</exec_depend>
+  <exec_depend>moveit_ros_move_group</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+
+  <!-- Navigation -->
+  <exec_depend>robot_nav2</exec_depend>
+  <exec_depend>robot_slam</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>nav2_controller</exec_depend>
+  <exec_depend>nav2_planner</exec_depend>
+  <exec_depend>nav2_behaviors</exec_depend>
+  <exec_depend>nav2_bt_navigator</exec_depend>
+  <exec_depend>nav2_lifecycle_manager</exec_depend>
+
+  <!-- Sensors & perception -->
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>yolo_realsense</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+  <!-- Utilities -->
+  <exec_depend>robot_web_interface</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

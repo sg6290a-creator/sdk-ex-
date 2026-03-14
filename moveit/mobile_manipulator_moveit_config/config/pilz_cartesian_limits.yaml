@@ -1,0 +1,7 @@
+cartesian_limits:
+  max_trans_vel: 0.5      # 부드러운 직선 이동 (기존 1.0에서 감소)
+  max_trans_acc: 0.75     # joint_limits의 max_acceleration과 맞춤
+  max_trans_dec: -1.5     # 부드러운 감속 (기존 -5.0에서 완화)
+  max_rot_vel: 1.0        # joint_limits의 평균 max_velocity와 맞춤
+  max_rot_acc: 0.75       # joint_limits의 max_acceleration과 맞춤
+  max_rot_dec: -1.5       # 부드러운 회전 감속

@@ -1,0 +1,56 @@
+# ============================================================================
+# STOMP (Stochastic Trajectory Optimization for Motion Planning)
+# ============================================================================
+# 확률적 궤적 최적화 - 4-DOF 로봇에 매우 적합
+# 부드러운 궤적, 장애물 회피, 빠른 수렴
+# ============================================================================
+
+planning_plugin: stomp_moveit/StompPlanner
+
+# STOMP 설정
+stomp:
+  num_timesteps: 40
+  num_iterations: 40
+  num_iterations_after_valid: 0
+  num_rollouts: 30
+  max_rollouts: 30
+  initialization_method: 1  # [1=LINEAR_INTERPOLATION, 2=CUBIC_POLYNOMIAL, 3=MININUM_CONTROL_COST]
+  control_cost_weight: 0.0
+  
+  # 4-DOF 로봇 특화 노이즈 설정
+  noise_generator:
+    - class: stomp_moveit/NormalDistributionSampling
+      stddev: [0.05, 0.05, 0.05, 0.05]  # 각 조인트별 표준편차
+  
+  # 비용 함수
+  cost_functions:
+    - class: stomp_moveit/CollisionCheck
+      collision_penalty: 1.0
+    - class: stomp_moveit/SmoothnessCost
+      smoothness_cost_weight: 0.1
+  
+  # 노이즈 생성기
+  noisy_filters:
+    - class: stomp_moveit/JointLimits
+      lock_start: True
+      lock_goal: True
+    - class: stomp_moveit/MultiTrajectoryVisualization
+      line_width: 0.02
+      rgb: [255, 255, 0]
+      marker_array_topic: stomp_trajectories
+      marker_namespace: noisy
+  
+  # 업데이트 필터
+  update_filters:
+    - class: stomp_moveit/PolynomialSmoother
+      poly_degree: 5
+    - class: stomp_moveit/TrajectoryVisualization
+      line_width: 0.05
+      rgb: [0, 191, 255]
+      error_rgb: [255, 0, 0]
+      publish_intermediate: True
+      marker_topic: stomp_trajectory
+      marker_namespace: optimized
+
+arm:
+  default_planner_config: stomp

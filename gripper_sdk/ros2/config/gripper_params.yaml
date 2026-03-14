@@ -1,0 +1,17 @@
+gripper_node:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 1000000
+    motor_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    publish_rate_hz: 50.0
+    use_mock_hardware: true
+
+gripper_action_server:
+  ros__parameters:
+    motor_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    open_positions:   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    closed_positions: [4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095]
+    position_tolerance: 50.0
+    goal_timeout_sec: 5.0
+    state_timeout_sec: 1.0
+    feedback_rate_hz: 20.0

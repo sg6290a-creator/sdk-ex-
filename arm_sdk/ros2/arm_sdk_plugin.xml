@@ -1,0 +1,9 @@
+<library path="arm_sdk_system">
+  <class name="arm_sdk/ArmSystemInterface"
+         type="arm_sdk_ros2::ArmSystemInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Arm SDK hardware interface: ArmDriver (USBCAN + RMD) with thin ROS2 bridge.
+    </description>
+  </class>
+</library>

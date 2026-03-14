@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="arm_sdk" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="arm_backend" default="myactuator"/>
+  <xacro:arg name="can_channel" default="0"/>
+  <xacro:arg name="baudrate" default="1000000"/>
+  <xacro:arg name="motor1_id" default="1"/>
+  <xacro:arg name="motor2_id" default="2"/>
+  <xacro:arg name="motor3_id" default="3"/>
+  <xacro:arg name="motor4_id" default="4"/>
+  <xacro:arg name="auto_home" default="true"/>
+  <xacro:arg name="use_mock_hardware" default="false"/>
+
+  <xacro:include filename="$(find arm_sdk)/urdf/arm_only/arm_standalone.urdf.xacro"/>
+  <xacro:include filename="$(find arm_sdk)/urdf/ros2_control_arm_sdk.urdf.xacro"/>
+
+  <xacro:ros2_control_arm_sdk
+    arm_backend="$(arg arm_backend)"
+    can_channel="$(arg can_channel)"
+    baudrate="$(arg baudrate)"
+    motor1_id="$(arg motor1_id)"
+    motor2_id="$(arg motor2_id)"
+    motor3_id="$(arg motor3_id)"
+    motor4_id="$(arg motor4_id)"
+    auto_home="$(arg auto_home)"
+    use_mock_hardware="$(arg use_mock_hardware)"/>
+</robot>

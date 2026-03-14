@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="ros2_control_arm_sdk" params="
+    arm_backend:=myactuator
+    can_channel:=0
+    baudrate:=1000000
+    motor1_id:=1
+    motor2_id:=2
+    motor3_id:=3
+    motor4_id:=4
+    auto_home:=true
+    use_mock_hardware:=false
+  ">
+    <xacro:unless value="${use_mock_hardware}">
+      <ros2_control name="arm_sdk_system" type="system">
+        <hardware>
+          <plugin>arm_sdk/ArmSystemInterface</plugin>
+          <param name="arm_backend">${arm_backend}</param>
+          <param name="can_channel">${can_channel}</param>
+          <param name="baudrate">${baudrate}</param>
+          <param name="auto_home">${auto_home}</param>
+          <param name="cycle_time">10</param>
+          <param name="motor_acceleration">500</param>
+          <param name="motor_deceleration">500</param>
+          <param name="max_velocity">360</param>
+          <param name="default_velocity">180</param>
+          <param name="enable_timing_log">false</param>
+        </hardware>
+
+        <joint name="link2_to_link1">
+          <param name="actuator_id">${motor1_id}</param>
+          <param name="torque_constant">0.32</param>
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <command_interface name="effort"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="link3_to_link2">
+          <param name="actuator_id">${motor2_id}</param>
+          <param name="torque_constant">0.32</param>
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <command_interface name="effort"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="link4_to_link3">
+          <param name="actuator_id">${motor3_id}</param>
+          <param name="torque_constant">0.32</param>
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <command_interface name="effort"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="gripper_to_link4">
+          <param name="actuator_id">${motor4_id}</param>
+          <param name="torque_constant">0.32</param>
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <command_interface name="effort"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+      </ros2_control>
+    </xacro:unless>
+
+    <xacro:if value="${use_mock_hardware}">
+      <ros2_control name="arm_sdk_mock_system" type="system">
+        <hardware>
+          <plugin>mock_components/GenericSystem</plugin>
+        </hardware>
+        <joint name="link2_to_link1">
+          <command_interface name="position"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="link3_to_link2">
+          <command_interface name="position"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="link4_to_link3">
+          <command_interface name="position"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="gripper_to_link4">
+          <command_interface name="position"/>
+          <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+          <state_interface name="velocity"/>
+        </joint>
+      </ros2_control>
+    </xacro:if>
+  </xacro:macro>
+</robot>

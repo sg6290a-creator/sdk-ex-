@@ -1,0 +1,32 @@
+# ============================================================================
+# Pilz Industrial Motion Planner - 4-DOF 로봇 최적화
+# ============================================================================
+# 산업용 로봇에 특화된 deterministic 플래너
+# 직선/원호 경로, 빠른 계산, 예측 가능한 결과
+# ============================================================================
+
+planning_plugin: pilz_industrial_motion_planner/PlanningAdapter
+
+# Pilz 플래너 설정
+pilz_industrial_motion_planner:
+  default_planner_config: PTP
+  planner_configs:
+    - PTP    # Point-to-Point (관절 공간)
+    - LIN    # Linear (직선 경로)
+    - CIRC   # Circular (원호 경로)
+  
+  # 4-DOF 로봇 특화 설정
+  cartesian_limits:
+    max_trans_vel: 0.2      # 최대 직선 속도 (m/s)
+    max_trans_acc: 0.5      # 최대 직선 가속도 (m/s²)
+    max_trans_dec: -0.5     # 최대 직선 감속도 (m/s²)
+    max_rot_vel: 0.5        # 최대 회전 속도 (rad/s)
+    max_rot_acc: 1.0        # 최대 회전 가속도 (rad/s²)
+    max_rot_dec: -1.0       # 최대 회전 감속도 (rad/s²)
+
+arm:
+  default_planner_config: PTP
+  planner_configs:
+    - PTP
+    - LIN
+    - CIRC

@@ -1,0 +1,39 @@
+# ============================================================================
+# CHOMP (Covariant Hamiltonian Optimization for Motion Planning)
+# ============================================================================
+# Gradient-based trajectory optimization
+# 장애물 회피와 부드러운 경로 생성에 특화
+# 4-DOF 로봇의 제한된 자유도에서도 효과적
+# ============================================================================
+
+planning_plugin: chomp_interface/CHOMPPlanner
+
+# CHOMP 설정
+chomp:
+  planning_time_limit: 10.0
+  max_iterations: 200
+  max_iterations_after_collision_free: 5
+  smoothness_cost_weight: 0.1
+  obstacle_cost_weight: 1.0
+  learning_rate: 0.01
+  animate_path: false
+  add_randomness: false
+  smoothness_cost_velocity: 0.0
+  smoothness_cost_acceleration: 1.0
+  smoothness_cost_jerk: 0.0
+  hmc_discretization: 0.01
+  hmc_stochasticity: 0.01
+  hmc_annealing_factor: 0.99
+  use_hamiltonian_monte_carlo: false
+  ridge_factor: 0.001
+  use_pseudo_inverse: false
+  pseudo_inverse_ridge_factor: 1e-4
+  joint_update_limit: 0.1
+  collision_clearance: 0.2
+  collision_threshold: 0.07
+  use_stochastic_descent: true
+  enable_failure_recovery: false
+  max_recovery_attempts: 5
+
+arm:
+  default_planner_config: chomp
